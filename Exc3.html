@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 3 - Verificador de idade</title>
+</head>
+<body>
+    <h1>Verificador de idade</h1>
+
+    <label for="idade">Informe sua idade:</label>
+
+    <input type="number" id="idade" min="0" placeholder="Digite sua idade">
+
+    <button id="verificar">Verificar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        const idade = document.querySelector("#idade");
+        const botao = document.getElementById("verificar");
+        const resultado = document.querySelector("#resultado");
+
+        botao.addEventListener("click", function(){
+
+            if(idade.value === ""){
+                resultado.textContent = "Por favor, preencha o campo da idade.";
+                return;
+            }
+
+            let valorIdade = Number(idade.value);
+
+            if(valorIdade >= 18){
+                resultado.textContent = "Você é maior de idade.";
+            }else{
+                resultado.textContent = "Você é menor de idade.";
+            }
+        });
+    </script>
+</body>
+</html>
