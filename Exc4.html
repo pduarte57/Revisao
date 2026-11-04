@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 4 - Lista de nomes</title>
+</head>
+<body>
+    <h1>Lista de nomes</h1>
+
+    <input type="text" id="nome" placeholder="Digite um nome">
+
+    <button id="adicionar">Adicionar</button>
+
+    <ul id="lista"></ul>
+
+    <p id="mensagem"></p>
+
+    <script>
+        const nome = document.getElementById("nome");
+        const botao = document.querySelector("#adicionar");
+        const lista = document.getElementById("lista");
+        const mensagem = document.querySelector("#mensagem");
+
+        botao.addEventListener("click", function(){
+
+            if(nome.value.trim() === ""){
+                mensagem.textContent = "Digite um nome antes de adicionar.";
+                return;
+            }
+
+            let item = document.createElement("li");
+
+            item.textContent = nome.value.trim();
+
+            lista.appendChild(item);
+
+            nome.value = "";
+            mensagem.textContent = "";
+        });
+    </script>
+</body>
+</html>
