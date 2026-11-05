@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 7</title>
+</head>
+<body>
+    <h1>Controle de notas</h1>
+    <input type="text" id="nome" placeholder="Nome do aluno">
+    <input type="number" id="nota" min="0" max="10" step="0.1" placeholder="Nota (0 a 10)">
+    <button id="adicionar">Adicionar aluno</button>
+    <ul id="lista"></ul>
+    <h3 id="media">Média: 0</h3>
+    <p id="mensagem"></p>
+
+    <script>
+        let alunos = [];
+        const nome = document.getElementById("nome");
+        const nota = document.querySelector("#nota");
+        const botao = document.getElementById("adicionar");
+        const lista = document.querySelector("#lista");
+        const media = document.getElementById("media");
+        const mensagem = document.querySelector("#mensagem");
+        botao.addEventListener("click", adicionarAluno);
+        function adicionarAluno(){
+            if(nome.value.trim() === "" || nota.value === ""){
+                mensagem.textContent = "Preencha o nome e a nota do aluno.";
+                return;
+            }
+            let valorNota = Number(nota.value);
+            if(valorNota < 0 || valorNota > 10){
+                mensagem.textContent = "A nota deve estar entre 0 e 10.";
+                return;
+            }
+            let aluno = {
+                nome: nome.value.trim(),
+                nota: valorNota
+            };
+            alunos.push(aluno);
+            mostrarAlunos();
+            nome.value = "";
+            nota.value = "";
+            mensagem.textContent = "";
+        }
+        function mostrarAlunos(){
+            lista.innerHTML = "";
+            let soma = 0;
+            alunos.forEach(function(aluno, indice){
+                let situacao = "Reprovado";
+                if(aluno.nota >= 6){
+                    situacao = "Aprovado";
+                }
+                let item = document.createElement("li");
+                item.textContent = aluno.nome + " - Nota: " + aluno.nota + " - " + situacao + " ";
+                let btExcluir = document.createElement("button");
+                btExcluir.textContent = "Excluir";
+                item.appendChild(btExcluir);
+                btExcluir.addEventListener("click", function(){
+                    alunos.splice(indice, 1);
+                    mostrarAlunos();
+                });
+                lista.appendChild(item);
+                soma = soma + aluno.nota;
+            });
+            if(alunos.length === 0){
+                media.textContent = "Média: 0";
+            }else{
+                media.textContent = "Média: " + (soma / alunos.length).toFixed(2);
+            }
+        }
+    </script>
+</body>
+</html>
