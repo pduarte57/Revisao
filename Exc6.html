@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 6</title>
+</head>
+<body>
+    <h1>Cadastro de contatos</h1>
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="text" id="telefone" placeholder="Telefone">
+    <input type="email" id="email" placeholder="E-mail">
+    <button id="cadastrar">Cadastrar</button>
+    <ul id="lista"></ul>
+    <p id="mensagem"></p>
+
+    <script>
+        let contatos = [];
+        const nome = document.querySelector("#nome");
+        const telefone = document.getElementById("telefone");
+        const email = document.querySelector("#email");
+        const botao = document.getElementById("cadastrar");
+        const lista = document.querySelector("#lista");
+        const mensagem = document.getElementById("mensagem");
+        botao.addEventListener("click", cadastrarContato);
+        function cadastrarContato(){
+            let n = nome.value.trim();
+            let t = telefone.value.trim();
+            let e = email.value.trim();
+            if(n === "" || t === "" || e === ""){
+                mensagem.textContent = "Preencha todos os campos!";
+                return;
+            }
+            let contato = {
+                nome: n,
+                telefone: t,
+                email: e
+            };
+            contatos.push(contato);
+            mostrarContatos();
+            nome.value = "";
+            telefone.value = "";
+            email.value = "";
+            mensagem.textContent = "Contato cadastrado!";
+        }
+        function mostrarContatos(){
+            lista.innerHTML = "";
+            contatos.forEach(function(contato, indice){
+                let item = document.createElement("li");
+                item.textContent = contato.nome + " - " + contato.telefone + " - " + contato.email + " ";
+                let btExcluir = document.createElement("button");
+                btExcluir.textContent = "Excluir";
+                item.appendChild(btExcluir);
+                btExcluir.addEventListener("click", function(){
+                    contatos.splice(indice, 1);
+                    mostrarContatos();
+                });
+                lista.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>
