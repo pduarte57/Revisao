@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 5</title>
+    <style>
+        li {
+            margin: 8px 0;
+        }
+        button {
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de compras</h1>
+    <input type="text" id="produto" placeholder="Nome do produto">
+    <button id="adicionar">Adicionar produto</button>
+    <ul id="lista"></ul>
+    <p id="mensagem"></p>
+
+    <script>
+        const produto = document.getElementById("produto");
+        const botaoAdicionar = document.querySelector("#adicionar");
+        const lista = document.getElementById("lista");
+        const mensagem = document.querySelector("#mensagem");
+        botaoAdicionar.addEventListener("click", function(){
+            if(produto.value.trim() === ""){
+                mensagem.textContent = "Digite o nome de um produto.";
+                return;
+            }
+            let item = document.createElement("li");
+            let texto = document.createElement("span");
+            texto.textContent = produto.value.trim();
+            item.appendChild(texto);
+            let btComprado = document.createElement("button");
+            btComprado.textContent = "Comprado";
+            item.appendChild(btComprado);
+            btComprado.addEventListener("click", function(){
+                texto.style.textDecoration = "line-through";
+                texto.style.color = "green";
+                btComprado.textContent = "Já comprado";
+                btComprado.disabled = true;
+            });
+            let btExcluir = document.createElement("button");
+            btExcluir.textContent = "Excluir";
+            item.appendChild(btExcluir);
+            btExcluir.addEventListener("click", function(){
+                item.remove();
+            });
+            lista.appendChild(item);
+            produto.value = "";
+            mensagem.textContent = "";
+        });
+    </script>
+</body>
+</html>
